@@ -72,7 +72,7 @@
         {
             Console.WriteLine("2. Encrypt text");
         }
-        if(encryptedText != string.Empty)
+        if(decryptedText != string.Empty || encryptedText != string.Empty)
         {
             Console.WriteLine("3. Decrypt text");
         }
