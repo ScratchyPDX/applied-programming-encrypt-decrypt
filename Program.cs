@@ -14,8 +14,15 @@
         {
             if (filePath == string.Empty && !doesPathExist)
             {
-                Console.Write("\nBefore we begin, enter the absolute path to the file you want to read from or write to: ");
+
+                Console.WriteLine("\nBefore we begin, enter the absolute path to the file you want to read from or write to?");
+                Console.Write($"Enter the full path OR press ENTER to accept the default path of {Environment.GetFolderPath(Environment.SpecialFolder.Desktop)}/test.txt: ");
+                Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
                 filePath = Console.ReadLine();
+                if(filePath == string.Empty)
+                {
+                    filePath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "/test.txt";
+                }
                 doesPathExist = Directory.Exists(Path.GetDirectoryName(filePath));
                 if (!doesPathExist)
                 {
@@ -58,7 +65,7 @@
 
     private static int displayMenu(string userEnteredText, string encryptedText, string decryptedText, string filePath)
     {
-        if(userEnteredText != string.Empty)
+        if(userEnteredText == string.Empty)
         {
             Console.WriteLine("\n1. Enter text to use");
         }
