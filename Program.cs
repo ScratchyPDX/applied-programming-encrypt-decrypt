@@ -13,15 +13,14 @@
         do
         {
             if (filePath == string.Empty && !doesPathExist)
-            {
-
+            {   string defaultFilePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "test.txt");
                 Console.WriteLine("\nBefore we begin, enter the absolute path to the file you want to read from or write to?");
-                Console.Write($"Enter the full path OR press ENTER to accept the default path of {Environment.GetFolderPath(Environment.SpecialFolder.Desktop)}/test.txt: ");
+                Console.Write($"Enter the full path OR press ENTER to accept the default path of {defaultFilePath}: ");
                 Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
                 filePath = Console.ReadLine();
                 if(filePath == string.Empty)
                 {
-                    filePath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "/test.txt";
+                    filePath = defaultFilePath;
                 }
                 doesPathExist = Directory.Exists(Path.GetDirectoryName(filePath));
                 if (!doesPathExist)
