@@ -31,7 +31,7 @@ public static class Crypto
     {
         Console.WriteLine("DecryptString: textToDecrypt: " + textToDecrypt);
         // Convert the cipher text from a Base64 string to a byte array
-        byte[] cipherTextBytes = Convert.FromBase64String(textToDecrypt).ToArray();
+        byte[] cipherTextBytes = Convert.FromBase64String(textToDecrypt);
         Console.WriteLine("DecryptString: cipherTextBytes: " + BitConverter.ToString(cipherTextBytes));
         
         // Convert the encryption key and initialization vector (IV) to byte arrays
@@ -87,8 +87,8 @@ public static class Crypto
     public static string EncryptString(string plainText)
     {
         Console.WriteLine("EncryptString: plainText: " + plainText);
+
         // Convert the plain text, encryption key, and initialization vector (IV) from strings to byte arrays
-        byte[] plainTextBytes = Encoding.UTF8.GetBytes(plainText);
         byte[] keyBytes = Encoding.UTF8.GetBytes(key);
         byte[] ivBytes = Encoding.UTF8.GetBytes(iv);
 
@@ -118,11 +118,12 @@ public static class Crypto
                     {
                         Console.WriteLine("EncryptString: 5");
                         // Write the plain text bytes to the stream writer
-                        swEncrypt.Write(plainTextBytes);
+                        swEncrypt.Write(plainText);
                         Console.WriteLine("EncryptString: 6");
                     }
 
                     // Convert the encrypted data from a byte array to a Base64 string and return it
+                    Console.WriteLine("msEncrypt.ToArray(): " + msEncrypt.ToArray());
                     string base64StringOfEncryptedText = Convert.ToBase64String(msEncrypt.ToArray());
                     Console.WriteLine("EncryptString: base64StringOfEncryptedText: " + base64StringOfEncryptedText);
                     return base64StringOfEncryptedText;
