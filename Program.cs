@@ -138,27 +138,30 @@ namespace std
         
         private static string encryptText(string? userEnteredText, string decryptedText)
         {
-            if(userEnteredText == string.Empty && decryptedText == string.Empty)
-            {
-                Console.WriteLine("\nYou must enter text before you can encrypt it.");
-                Console.WriteLine("Use menu option 1 to enter text");
-                Console.WriteLine("or menu option 4 to read encrypted text from a file.");
-                return String.Empty;
+            if(userEnteredText != null){
+                return Crypto.EncryptString(userEnteredText);
             }
-            return Crypto.EncryptString(userEnteredText);
+            else if(decryptedText != string.Empty)
+            {
+                return Crypto.EncryptString(decryptedText);
+            }
+            Console.WriteLine("\nYou must enter text before you can encrypt it.");
+            Console.WriteLine("Use menu option 1 to enter text");
+            Console.WriteLine("or menu option 4 to read encrypted text from a file.");
+            return String.Empty;
         }
 
         private static string decryptText(string? encryptedText)
         {
-            if(encryptedText == string.Empty)
+            if(encryptedText != null && encryptedText != string.Empty)
             {
-                Console.WriteLine("\nYou must have encrypted text before you can decrypt it.");
-                Console.WriteLine("Either use menu option 2 to encrypt text text you've entered");
-                Console.WriteLine("or menu option 4 to read encrypted text from a file.");
-                return String.Empty;
+                return Crypto.DecryptString(encryptedText);
             }
-            return Crypto.DecryptString(encryptedText);
-        }
+            Console.WriteLine("\nYou must have encrypted text before you can decrypt it.");
+            Console.WriteLine("Either use menu option 2 to encrypt text text you've entered");
+            Console.WriteLine("or menu option 4 to read encrypted text from a file.");
+            return String.Empty;
+    }
 
         private static string readEncryptedTextFile(string? filePath) {
             if(!File.Exists(filePath))
@@ -178,8 +181,15 @@ namespace std
                 Console.WriteLine("Use menu option 2 to encrypt text you've entered.");
                 return false;
             }
-            File.WriteAllText(filePath, encryptedText);
-            return true;
+            
+            if(filePath != null)
+            {
+                File.WriteAllText(filePath, encryptedText);
+                return true;
+            }
+            
+            Console.WriteLine("\nInvalid file path. Please try again.");
+            return false;
         }
     }
 }
