@@ -33,8 +33,9 @@ namespace std
                     doesPathExist = Directory.Exists(Path.GetDirectoryName(filePath));
                     if (!doesPathExist)
                     {
-                        Console.Write($"The path entered does not exist: {Path.GetFullPath(filePath)}");
-                        continue;
+                        Console.WriteLine($"\nThe path entered does not exist: {Path.GetFullPath(filePath ?? string.Empty)}");
+                        Console.WriteLine("Cannot continue without a valid file. Exiting...\n");
+                        break;
                     }
                 }
                 displayMenu(userEnteredText, encryptedText, decryptedText, filePath);
@@ -76,7 +77,7 @@ namespace std
                         break;
 
                     case 6:
-                        Console.WriteLine("Exit");
+                        Console.WriteLine("\nGoodbye!");
                         break;
                 }
 
@@ -128,8 +129,9 @@ namespace std
         {
             Console.Write("\nEnter your choice: ");
             string? choice = Console.ReadLine();
-            if(Regex.Matches(choice, @"[a-zA-Z]").Count > 0 || !validMenuOptions.Contains(Convert.ToInt32(choice)))
-            {
+            if(choice != null 
+                && (Regex.Matches(choice, @"[a-zA-Z]").Count > 0 
+                || !validMenuOptions.Contains(Convert.ToInt32(choice)))) {
                 Console.WriteLine("\nInvalid menu choice. Please try again.");
                 return 0;
             }
