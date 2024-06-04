@@ -1,5 +1,9 @@
-﻿public class Program
+﻿using System.Collections;
+
+public class Program
 {
+    static ArrayList validMenuOptions = new ArrayList();
+
     public static void Main()
     {
         string? userEnteredText = String.Empty;
@@ -29,7 +33,11 @@
                 }
             }
             choice = displayMenu(userEnteredText, encryptedText, decryptedText, filePath);
-
+            if(!validMenuOptions.Contains(choice))
+            {
+                Console.WriteLine("\nInvalid choice. Please try again.");
+                continue;
+            }
             switch (choice)
             {
                 case 1:
@@ -73,33 +81,37 @@
 
     private static int displayMenu(string userEnteredText, string encryptedText, string decryptedText, string filePath)
     {
-        // Console.WriteLine($"displayMenu: userEnteredText: {userEnteredText}");
-        // Console.WriteLine($"displayMenu: encryptedText: {encryptedText}");
-        // Console.WriteLine($"displayMenu: decryptedText: {decryptedText}");
-        // Console.WriteLine($"displayMenu: filePath: {filePath}");
         Console.WriteLine();
+        validMenuOptions.Clear();
         
         if(userEnteredText == string.Empty)
         {
             Console.WriteLine("1. Enter text to use");
+            validMenuOptions.Add(1);
         }
         if(userEnteredText != string.Empty || decryptedText != string.Empty)
         {
             Console.WriteLine("2. Encrypt text");
+            validMenuOptions.Add(2);
         }
         if(decryptedText != string.Empty || encryptedText != string.Empty)
         {
             Console.WriteLine("3. Decrypt text");
+            validMenuOptions.Add(3);
         }
         if(filePath != string.Empty)
         {
             Console.WriteLine("4. Read encrypted text from a file");
+            validMenuOptions.Add(4);
         }
         if(encryptedText != string.Empty)
         {
             Console.WriteLine("5. Write encrypted text to a file");
+            validMenuOptions.Add(5);
         }
         Console.WriteLine("6. Exit");
+        validMenuOptions.Add(6);
+        
         Console.Write("\nEnter your choice: ");
         return Convert.ToInt32(Console.ReadLine());
     }
