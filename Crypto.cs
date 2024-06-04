@@ -5,17 +5,31 @@ namespace std {
     public static class Crypto
     {
         /*
+            NOTE: The key and initialization vector (IV) used in this example are hardcoded.
             A real world application would replace the key and initialization vector (IV) with its 
             own values. The key and IV must be of a certain length. For AES, the key can be 128 bits 
             (16 bytes), 192 bits (24 bytes), or 256 bits (32 bytes) long, and the IV is always 128 
             bits (16 bytes) long.
         */
-
-        // 16 chars = 128 bits
-        // cypher key
+        
+        /*
+            Cypher Key - In the context of cryptography, a cipher key (often just called a "key") is 
+            a piece of information used in combination with an algorithm (a cipher) to transform 
+            plaintext into ciphertext (encryption) and vice versa (decryption). The key is what makes 
+            the transformation secure, because even if someone knows the algorithm used, they can't 
+            decrypt the ciphertext back into plaintext without the key. The key is meant to be a secret, 
+            known only to the sender and the receiver of the encrypted data.
+        */
         private readonly static string key = "abcdefghijklmnop";
         
-        // initialization vector (IV)
+        /*
+            Initialization Vector (IV) - In cryptography, an Initialization Vector (IV) is an arbitrary 
+            number that can be used along with a secret key for data encryption. This number, also called 
+            a nonce, is used only once in any session. The use of an IV prevents repetition during the data 
+            encryption process, making it impossible for hackers to hack the encrypted data. Essentially, 
+            an IV is an added input to a cryptographic primitive, making it more random and thereby more 
+            secure.
+        */
         private readonly static string iv = "abcdefghijklmnop";
         
         /*
