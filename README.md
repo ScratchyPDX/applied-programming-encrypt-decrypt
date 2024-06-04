@@ -10,14 +10,8 @@ AES uses a series of transformations, including substitution, permutation, and m
 
 Despite its complexity, AES is efficient and can be implemented on various platforms, making it a popular choice for securing sensitive data.
 
-
-
-{Provide a link to your YouTube demonstration. It should be a 4-5 minute demo of the software running and a walkthrough of the code. Focus should be on sharing what you learned about the language syntax.}
-
-[Software Demo Video](http://youtube.link.goes.here)
-
-
-
+# Demonstration Video
+[Software Demo Video](https://youtu.be/GYtUzdyKVUg)
 
 # Development Environment
 
@@ -49,3 +43,4 @@ Visual Studio Code, .NET 7.0, and C# version 10 were used as the development env
 - Make this a dynamic link library or other object that could be used by another application to perform text encryption
 - Add a real frontend to the app and not just a console I/O
 - Add In a real-world project, unit tests would have been added
+- Move the menu code out of the Program class and into it's own class to keep Program clean 
