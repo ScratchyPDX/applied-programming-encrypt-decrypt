@@ -11,6 +11,7 @@ namespace std
 
         public static void Main()
         {
+            // define variables and set their default values
             string? userEnteredText = String.Empty;
             string? filePath = String.Empty;
             string? encryptedText = String.Empty;
@@ -18,14 +19,18 @@ namespace std
             bool doesPathExist = false;
             int choice = 0;
             
+            // main loop which continues until the user selects the exit option from the menu
             do
             {
+                // get file path if not already set - this is defaulted to simplify testing, but can be overridden by user
                 if (filePath != null && filePath == string.Empty && !doesPathExist)
                 {   string defaultFilePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "test.txt");
                     Console.WriteLine("\nBefore we begin, enter the absolute path to the file you want to read from or write to?");
                     Console.Write($"Enter the full path OR press ENTER to accept the default path of {defaultFilePath}: ");
                     Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
                     filePath = Console.ReadLine();
+
+                    // check that the path exists and is valid
                     if(filePath == string.Empty)
                     {
                         filePath = defaultFilePath;
@@ -38,10 +43,14 @@ namespace std
                         break;
                     }
                 }
+
+                // menu options
                 displayMenu(userEnteredText, encryptedText, decryptedText, filePath);
                 
+                // get user choice
                 choice = getMenuChoice();
 
+                // process user choice
                 switch (choice)
                 {   case 0:
                         // invalid input was detected. Reset menu
@@ -85,6 +94,7 @@ namespace std
             while (choice != 6);
         }
 
+        // display the menu options based on the current state of the application
         private static void displayMenu(string? userEnteredText, string encryptedText, string decryptedText, string? filePath)
         {
             Console.WriteLine();
@@ -119,12 +129,14 @@ namespace std
             validMenuOptions.Add(6);
         }
 
+        // get the text the user wants to encrypt
         private static string? getUserEnterText()
         {
             Console.Write("\nEnter text: ");
             return Console.ReadLine();
         }
 
+        // get the user's menu choice
         private static int getMenuChoice()
         {
             Console.Write("\nEnter your choice: ");
@@ -138,6 +150,7 @@ namespace std
             return Convert.ToInt32(choice);
         }
         
+        // encrypt the text the user entered
         private static string encryptText(string? userEnteredText, string decryptedText)
         {
             if(userEnteredText != null){
@@ -153,6 +166,7 @@ namespace std
             return String.Empty;
         }
 
+        // decrypt the text the user entered
         private static string decryptText(string? encryptedText)
         {
             if(encryptedText != null && encryptedText != string.Empty)
@@ -163,8 +177,9 @@ namespace std
             Console.WriteLine("Either use menu option 2 to encrypt text text you've entered");
             Console.WriteLine("or menu option 4 to read encrypted text from a file.");
             return String.Empty;
-    }
+        }
 
+        // read the encrypted text from a file
         private static string readEncryptedTextFile(string? filePath) {
             if(!File.Exists(filePath))
             {
@@ -175,6 +190,7 @@ namespace std
             return File.ReadAllText(filePath);
         }
 
+        // write the encrypted text to a file
         private static bool writeEncryptedTextToFile(string? filePath, string? encryptedText)
         {
             if(encryptedText == string.Empty)

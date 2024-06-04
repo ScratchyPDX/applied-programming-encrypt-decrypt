@@ -68,7 +68,7 @@ public static class Crypto
         The EncryptString method takes a string of plain text as a parameter and returns a string of 
         encrypted text. The method first converts the plain text, encryption key, and initialization 
         vector (IV) to byte arrays. It then creates a new AES instance and sets the key and IV for the 
-        instance. Next, the method creates an encrypt3r that uses the key and IV. It creates a memory 
+        instance. Next, the method creates an encrypter that uses the key and IV. It creates a memory 
         stream to hold the encrypted data, a crypto stream that writes to the memory stream and encrypts 
         the data, and a stream writer that writes to the crypto stream. The method writes the plain text 
         bytes to the stream writer, converts the encrypted data from a byte array to a Base64 string, and 
