@@ -7,7 +7,6 @@
         string? encryptedText = String.Empty;
         string? decryptedText = String.Empty;
         bool doesPathExist = false;
-        bool textWrittenToFile = false;
         int choice = 0;
         
         do
@@ -35,6 +34,7 @@
             {
                 case 1:
                     userEnteredText = getUserEnterText();
+                    Console.WriteLine($"\nText entered: {userEnteredText}");
                     break;
 
                 case 2:
@@ -44,19 +44,21 @@
 
                 case 3:
                     decryptedText = decryptText(encryptedText);
+                    Console.WriteLine($"\nDecrypted text: {decryptedText}");
                     break;
 
                 case 4:
                     encryptedText = readEncryptedTextFile(filePath);
+                    Console.WriteLine($"\nEncrypted text read from file: {encryptedText}");
                     break;
 
                 case 5:
-                    textWrittenToFile = writeEncryptedTextToFile(filePath, encryptedText);
-                    if(textWrittenToFile) { 
+                    if(writeEncryptedTextToFile(filePath, encryptedText)) { 
                         // reinitialize variables
                         userEnteredText = string.Empty;
                         encryptedText = string.Empty;
                         decryptedText = string.Empty;
+                        Console.WriteLine("\nEncrypted text written to file and apps has been reinitialized");
                     }
                     break;
 
@@ -71,10 +73,10 @@
 
     private static int displayMenu(string userEnteredText, string encryptedText, string decryptedText, string filePath)
     {
-        Console.WriteLine($"displayMenu: userEnteredText: {userEnteredText}");
-        Console.WriteLine($"displayMenu: encryptedText: {encryptedText}");
-        Console.WriteLine($"displayMenu: decryptedText: {decryptedText}");
-        Console.WriteLine($"displayMenu: filePath: {filePath}");
+        // Console.WriteLine($"displayMenu: userEnteredText: {userEnteredText}");
+        // Console.WriteLine($"displayMenu: encryptedText: {encryptedText}");
+        // Console.WriteLine($"displayMenu: decryptedText: {decryptedText}");
+        // Console.WriteLine($"displayMenu: filePath: {filePath}");
         Console.WriteLine();
         
         if(userEnteredText == string.Empty)
@@ -105,14 +107,11 @@
     private static string getUserEnterText()
     {
         Console.Write("\nEnter text: ");
-        string userEnteredText = Console.ReadLine();
-        Console.WriteLine($"Text entered was: {userEnteredText}");
-        return userEnteredText;
+        return Console.ReadLine();
     }
     
     private static string encryptText(string userEnteredText, string decryptedText)
     {
-        Console.WriteLine("Encrypted text here");
         if(userEnteredText == string.Empty && decryptedText == string.Empty)
         {
             Console.WriteLine("\nYou must enter text before you can encrypt it.");
@@ -120,14 +119,11 @@
             Console.WriteLine("or menu option 4 to read encrypted text from a file.");
             return String.Empty;
         }
-        string encryptedText = Crypto.EncryptString(userEnteredText);
-        Console.WriteLine($"encryptText: encrypted text: {encryptedText}");
-        return encryptedText;
+        return Crypto.EncryptString(userEnteredText);
     }
 
     private static string decryptText(string encryptedText)
     {
-        Console.WriteLine("Decrypted text here");
         if(encryptedText == string.Empty)
         {
             Console.WriteLine("\nYou must have encrypted text before you can decrypt it.");
@@ -135,31 +131,21 @@
             Console.WriteLine("or menu option 4 to read encrypted text from a file.");
             return String.Empty;
         }
-        string decryptedText = Crypto.DecryptString(encryptedText);
-        Console.WriteLine($"decryptText: decrypted text: {decryptedText}");
-        return decryptedText;
+        return Crypto.DecryptString(encryptedText);
     }
 
     private static string readEncryptedTextFile(string filePath) {
-        Console.WriteLine("Read encrypted text from file");
-        string encryptedTextReadFromFile = string.Empty;
         if(!File.Exists(filePath))
         {
             Console.WriteLine("\nNo file found at the path entered.");
             Console.WriteLine("Use menu option 5 to write encrypted text to a file.");
             return String.Empty;
         }
-        if (filePath != null)
-        {
-            encryptedTextReadFromFile = File.ReadAllText(filePath);
-            Console.WriteLine($"readEncryptedTextFile: Encrypted text read from file: {encryptedTextReadFromFile}");
-        }
-        return encryptedTextReadFromFile;
+        return File.ReadAllText(filePath);
     }
 
     private static bool writeEncryptedTextToFile(string filePath, string encryptedText)
     {
-        Console.WriteLine("Write encrypted text to file");
         if(encryptedText == string.Empty)
         {
             Console.WriteLine("\nYou must have encrypted text before you can write it to a file.");
@@ -167,7 +153,6 @@
             return false;
         }
         File.WriteAllText(filePath, encryptedText);
-        Console.WriteLine("Text written to file.");
         return true;
     }
 }
